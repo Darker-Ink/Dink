@@ -1,0 +1,6 @@
+tests/
+node_modules/
+debug/
+dist/
+package-lock.json
+old/

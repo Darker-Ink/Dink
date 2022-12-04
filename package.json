@@ -1,0 +1,23 @@
+{
+  "name": "dink",
+  "version": "0.0.1",
+  "description": "Dink is a Discord Wrapper for Private use",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p .",
+    "run": "npm run build && node dist/tests/index.js"
+  },
+  "author": "DarkerInk",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^1.4.0",
+    "@sapphire/snowflake": "^3.3.0",
+    "discord-api-types": "^0.37.20",
+    "ws": "^8.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@types/ws": "^8.5.3"
+  }
+}
