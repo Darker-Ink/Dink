@@ -32,3 +32,7 @@ client.on('message', (msg) => {
 
 client.login('token')
 ```
+
+### Facts
+
+The name came from Panda (A Owner of wick bot)
