@@ -4,7 +4,9 @@ import { Client } from '../Client';
 import { GatewayDispatchEvents } from 'discord-api-types/v10';
 import { ClientUser } from '../Structures/ClientUser';
 import { Payloads } from './Payloads';
-
+import { Message } from '../Structures/Message';
+import { Channel } from '../Structures/Channel';
+import { RawChannelData as chan } from '../types/payloads/GuildCreate';
 const cannotReconnectCodes = [4_004, 4_010, 4_011, 4_013, 4_014, 1_000, 1_200];
 
 export class WS {
@@ -34,7 +36,12 @@ export class WS {
 
         this.gateway = undefined;
 
-        this.client = client
+        Object.defineProperty(this, 'client', {
+            value: client,
+            writable: false,
+            enumerable: false,
+            configurable: false
+        });
 
         this.lastEvent = undefined;
 
@@ -162,13 +169,17 @@ export class WS {
 
                     switch (payload.t) {
                         case GatewayDispatchEvents.MessageCreate:
-                            this.client.emit(GatewayEvents.MESSAGE_CREATE, payload.d);
+                            this.client.emit(GatewayEvents.MESSAGE_CREATE, new Message(this.client, payload.d));
                             break;
                         case GatewayDispatchEvents.GuildCreate:
 
                             if (this.status == Status.WAITING_ON_GUILDS && this.expectingGuilds.has(payload.d.id)) {
                                 this.expectingGuilds.delete(payload.d.id);
                                 this.client.guilds.set(payload.d.id, payload.d);
+                                
+                                payload.d.channels.forEach((channel: chan) => {
+                                    this.client.channels.set(channel.id, new Channel(this.client, channel));
+                                });
 
                                 this.checkReady();
                             } else {

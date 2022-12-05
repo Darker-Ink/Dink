@@ -6,11 +6,12 @@ import { WS } from './ws/WS';
 import { ClientUser } from './Structures/ClientUser';
 import { Collection } from './utils/Collection';
 import { Errors } from './Errors';
+import { Message } from './Structures/Message';
 
 
 export interface Client {
     on(event: 'Ready', listener: (client: Client) => void): this;
-    on(event: 'MessageCreate', listener: (message: any) => void): this;
+    on(event: 'MessageCreate', listener: (message: Message) => void): this;
     on(event: 'GuildCreate', listener: (guild: any) => void): this;
     on(event: 'GuildMembersChunk', listener: (chunk: any) => void): this;
     on(event: 'HeartBeat', listener: () => void): this;
@@ -26,6 +27,8 @@ export class Client extends EventEmitter {
     rest: REST;
     intents: number;
     options: { waitForGuildTimeout: number; waitForGuildMembersTimeout: number; };
+    uptime: number;
+    dmChannels: Collection<string, any>;
     constructor(obj: {
         intents: (keyof typeof GatewayIntents)[]
     }) {
@@ -70,6 +73,10 @@ export class Client extends EventEmitter {
         this.channels = new Collection();
 
         this.users = new Collection();
+
+        this.dmChannels = new Collection();
+
+        this.uptime = Date.now();
     }
 
     login(token: string) {
