@@ -2,6 +2,12 @@
 
 This is pretty much a joke Discord wrapper, I use it myself for some stuff but I wouldn't recommend using it. Its horrible and while I will update it its never going to be good as any other project, Check out Discord.js or Eris if you want a good wrapper.
 
+This handles reconnects and stuff. It also caches guilds & channels.
+
+## Credits
+
+I used Collections from discord.js thats about all I can remember as of writing this
+
 # Examples
 
 Since I'm too lazy to add to npm you'll need to git clone this repo and then run `npm install` in the directory.
