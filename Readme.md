@@ -20,11 +20,11 @@ const client = new Dink({
     intents: ["ALL"] // use what you want (I do not suggest using all)
 })
 
-client.on('ready', (cl) => {
+client.on('Ready', (cl) => {
     console.log(`Logged in as ${cl.user.username}`)
 })
 
-client.on('message', (msg) => {
+client.on('MessageCreate', (msg) => {
     if (msg.content === 'ping') {
         msg.channel.send('pong')
     }
