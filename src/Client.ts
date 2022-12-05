@@ -29,8 +29,10 @@ export class Client extends EventEmitter {
     options: { waitForGuildTimeout: number; waitForGuildMembersTimeout: number; };
     uptime: number;
     dmChannels: Collection<string, any>;
+    debug?: boolean;
     constructor(obj: {
-        intents: (keyof typeof GatewayIntents)[]
+        intents: (keyof typeof GatewayIntents)[];
+        debug?: boolean;
     }) {
         super();
         this.intents = obj.intents.reduce((acc, p) => acc | GatewayIntents[p], 0);
@@ -44,6 +46,13 @@ export class Client extends EventEmitter {
 
         Object.defineProperty(this, 'ws', {
             value: undefined,
+            writable: true,
+            enumerable: false,
+            configurable: false
+        })
+
+        Object.defineProperty(this, 'debug', {
+            value: obj?.debug ?? false,
             writable: true,
             enumerable: false,
             configurable: false

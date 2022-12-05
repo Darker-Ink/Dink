@@ -194,21 +194,21 @@ export class WS {
                     break;
 
                 case OpCodes.InvalidSession:
-                    console.log('Received INVALID_SESSION payload');
+                    if (this.client.debug) console.log('Received INVALID_SESSION payload');
                     break;
 
                 case OpCodes.Reconnect:
-                    console.log('Received RECONNECT payload');
+                    if (this.client.debug) console.log('Received RECONNECT payload');
                     this.expectingClose = true;
                     this.destroy(true)
                     break;
 
                 case OpCodes.Resume:
-                    console.log('Received RESUME payload');
+                    if (this.client.debug) console.log('Received RESUME payload');
                     break;
 
                 default:
-                    console.log(`Received unknown payload ${Object.keys(OpCodes).find(key => OpCodes[key as keyof typeof OpCodes] === payload.op)}`);
+                    if (this.client.debug) console.log(`Received unknown payload ${Object.keys(OpCodes).find(key => OpCodes[key as keyof typeof OpCodes] === payload.op)}`);
 
                     break;
             }

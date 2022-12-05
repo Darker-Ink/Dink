@@ -1,4 +1,5 @@
 import { Author2 } from "payloads/MessageCreate";
+import { DmData } from "requests/DMChannel";
 import { Client } from "../Client";
 
 export class User {
@@ -30,12 +31,10 @@ export class User {
                     body: {
                         recipient_id: this.id
                     }
-                }).then((res) => {
+                }).then((res: DmData) => {
 
-                    // @ts-ignore
-                    this.client.dmChannels.set(this.id, res.id);
+                    this.client.dmChannels.set(this.id, res.id); // DM Channel Cache
 
-                    // @ts-ignore
                     this.client.rest.post(`/channels/${res.id}/messages`, {
                         body: {
                             content: msg

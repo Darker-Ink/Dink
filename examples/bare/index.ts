@@ -1,8 +1,8 @@
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import Client, { OpCodes } from '../../src/index'
+import Client from '../../src/index'
 
 const client = new Client({
-    intents: ["All"]
+    intents: ["All"],
+    debug: false
 })
 
 client.on('Ready', async (cl) => {
