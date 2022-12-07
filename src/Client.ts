@@ -15,6 +15,7 @@ export interface Client {
     on(event: 'GuildCreate', listener: (guild: any) => void): this;
     on(event: 'GuildMembersChunk', listener: (chunk: any) => void): this;
     on(event: 'HeartBeat', listener: () => void): this;
+    on(event: 'Reconnect', listener: () => void): this;
 }
 
 export class Client extends EventEmitter {

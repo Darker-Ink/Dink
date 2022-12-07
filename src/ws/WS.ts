@@ -126,6 +126,7 @@ export class WS {
 
         this.gateway.on('open', () => {
             this.gateway.send(this.resumeUrl ? this.payloads.resume() : this.payloads.identify());
+            this.client.emit('Reconnect')
         });
 
         this.handleWebsocket(this.gateway);
@@ -195,6 +196,9 @@ export class WS {
 
                 case OpCodes.InvalidSession:
                     if (this.client.debug) console.log('Received INVALID_SESSION payload');
+                    this.expectingClose = true;
+                    this.resumeUrl = undefined;
+                    this.destroy(true);
                     break;
 
                 case OpCodes.Reconnect:
@@ -290,5 +294,9 @@ export class WS {
     send(payload?: string | { op: number, d?: any}) {
         if (typeof payload !== 'string') payload = JSON.stringify(payload);
         this.gateway.send(payload);
+    }
+
+    makeInvaildToTest() {
+        this.sessionID = '123';
     }
 }
