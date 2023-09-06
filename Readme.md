@@ -1,6 +1,6 @@
 # Dink
 
-This is pretty much a joke Discord wrapper, I use it myself for some stuff but I wouldn't recommend using it. Its horrible and while I will update it its never going to be good as any other project, Check out Discord.js or Eris if you want a good wrapper.
+This is pretty much a joke Discord wrapper, I wouldn't recommend using it. Its horrible and I will never update it as its never going to be good as any other project, Check out Discord.js or Eris if you want a good wrapper.
 
 This handles reconnects and stuff. It also caches guilds & channels.
 
@@ -32,7 +32,3 @@ client.on('MessageCreate', (msg) => {
 
 client.login('token')
 ```
-
-### Facts
-
-The name came from Panda (A Owner of wick bot)
